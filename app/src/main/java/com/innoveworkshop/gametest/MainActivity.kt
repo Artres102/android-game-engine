@@ -2,10 +2,12 @@ package com.innoveworkshop.gametest
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.innoveworkshop.gametest.assets.DroppingRectangle
+import com.innoveworkshop.gametest.assets.Football
 import com.innoveworkshop.gametest.engine.Circle
 import com.innoveworkshop.gametest.engine.GameObject
 import com.innoveworkshop.gametest.engine.GameSurface
@@ -34,20 +36,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupControls() {
         upButton = findViewById<View>(R.id.up_button) as Button
-        upButton!!.setOnClickListener { game!!.circle!!.position.y -= 10f }
+        upButton!!.setOnClickListener { game!!.football!!.position.y -= 10f }
 
         downButton = findViewById<View>(R.id.down_button) as Button
-        downButton!!.setOnClickListener { game!!.circle!!.position.y += 10f }
+        downButton!!.setOnClickListener { game!!.football!!.position.y += 10f }
 
         leftButton = findViewById<View>(R.id.left_button) as Button
-        leftButton!!.setOnClickListener { game!!.circle!!.position.x -= 10f }
+        leftButton!!.setOnClickListener { game!!.football!!.position.x -= 10f }
 
         rightButton = findViewById<View>(R.id.right_button) as Button
-        rightButton!!.setOnClickListener { game!!.circle!!.position.x += 10f }
+        rightButton!!.setOnClickListener { game!!.football!!.position.x += 10f }
     }
 
     inner class Game : GameObject() {
         var circle: Circle? = null
+        var football: Football? = null
 
         override fun onStart(surface: GameSurface?) {
             super.onStart(surface)
@@ -67,12 +70,13 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
-            surface.addGameObject(
-                DroppingRectangle(
-                    Vector((surface.width / 3).toFloat(), (surface.height / 3).toFloat()),
-                    100f, 100f, 10f, Color.rgb(128, 14, 80)
-                )
+            football = Football(
+                    surface.width / 2.toFloat(), surface.height.toFloat() - 500f, 250f, 10f, Color.BLUE
             )
+
+            surface.addGameObject(football!!)
+
+
         }
 
         override fun onFixedUpdate() {
