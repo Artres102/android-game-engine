@@ -36,13 +36,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupControls() {
         upButton = findViewById<View>(R.id.up_button) as Button
-        upButton!!.setOnClickListener { game!!.football!!.applyForce(Vector(0f,-100f)) }
+        upButton!!.setOnClickListener { game!!.football!!.velocity.y = -100f }
 
         downButton = findViewById<View>(R.id.down_button) as Button
         downButton!!.setOnClickListener { game!!.football!!.position.y += 10f }
 
         leftButton = findViewById<View>(R.id.left_button) as Button
-        leftButton!!.setOnClickListener { game!!.football!!.position.x -= 10f }
+        leftButton!!.setOnClickListener { game!!.football!!.velocity.x -= 1000f }
 
         rightButton = findViewById<View>(R.id.right_button) as Button
         rightButton!!.setOnClickListener { game!!.football!!.position.x += 10f }
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             )
 
             football = Football(
-                    surface.width / 2.toFloat(), 0f, 250f, 10f, Color.BLUE, 10.0f
+                    surface.width / 2.toFloat(), 0f, 250f, Color.BLUE, 1.0f
             )
 
             surface.addGameObject(football!!)
